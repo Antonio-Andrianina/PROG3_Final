@@ -27,14 +27,14 @@ paths:
         required: true
         content:
           application/json:
-            schema: 
+            schema:
               $ref: '#/components/schemas/CollectiviteCreation'
       responses:
         201:
           description: Collectivite cree avec succes
           content:
             application/json:
-              schema: 
+              schema:
                 $ref: '#/components/schemas/Collectivite'
         400:
           description: Echec dans le cas ou les conditions ne sont pas respectees
@@ -96,13 +96,13 @@ paths:
           description: Liste de toutes les cotisations
           content:
             application/json:
-              schema:  
+              schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Cotisation'
         404:
           $ref: '#/components/responses/NotFound'
-    post: 
+    post:
       tags:
         - Cotisations
       summary: create a new cotisation to pay
@@ -112,93 +112,93 @@ paths:
         required: true
         content:
           application/json:
-            schema: 
+            schema:
               $ref: '#/components/schemas/CotisationCreation'
       responses:
         201:
           description: Cotisation cree
           content:
             application/json:
-              schema: 
+              schema:
                 $ref: '#/components/schemas/Cotisation'
         400:
           $ref: '#/components/responses/BadRequest'
         404:
           $ref: '#/components/responses/NotFound'
   /collectivity/{id}/cotisations/{cotisationId}:
-      get:
-        tags:
-          - Cotisations
-        summary: Obtenir info sur une cotisation
-        parameters:
-          - $ref: '#/components/parameters/CollectiviteId'
-          - $ref: '#/components/parameters/CotisationId'
-        responses:
-          200:
-            description: La collectivite
-            content:
-              application/json:
-                schema:  
-                  $ref: '#/components/schemas/Cotisation'
-          404:
-            $ref: '#/components/responses/NotFound'
-      patch:
-        tags:
-          - Cotisations
-        summary: Mettre a jour une cotisation
-        parameters:
-          - $ref: '#/components/parameters/CollectiviteId'
-          - $ref: '#/components/parameters/CotisationId'
-        requestBody:
-          required: true
+    get:
+      tags:
+        - Cotisations
+      summary: Obtenir info sur une cotisation
+      parameters:
+        - $ref: '#/components/parameters/CollectiviteId'
+        - $ref: '#/components/parameters/CotisationId'
+      responses:
+        200:
+          description: La collectivite
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CotisationUpdate'
-        responses:
-          200:
-            description: cotisation mise a jour
-            content:
-              application/json:
-                schema:  
-                  $ref: '#/components/schemas/Cotisation'
-          400:
-            $ref: '#/components/responses/BadRequest'
-          404:
-            $ref: '#/components/responses/NotFound'
-      delete:
-        tags:
-          - Cotisations
-        summary: Supprimer une cotisation
-        parameters:
-          - $ref: '#/components/parameters/CollectiviteId'
-          - $ref: '#/components/parameters/CotisationId'
-        responses:
-          204:
-            description: Cotisation supprimee
-          400:
-            $ref: '#/components/responses/BadRequest'
-          404:
-            $ref: '#/components/responses/NotFound'
+                $ref: '#/components/schemas/Cotisation'
+        404:
+          $ref: '#/components/responses/NotFound'
+    patch:
+      tags:
+        - Cotisations
+      summary: Mettre a jour une cotisation
+      parameters:
+        - $ref: '#/components/parameters/CollectiviteId'
+        - $ref: '#/components/parameters/CotisationId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CotisationUpdate'
+      responses:
+        200:
+          description: cotisation mise a jour
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cotisation'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        404:
+          $ref: '#/components/responses/NotFound'
+    delete:
+      tags:
+        - Cotisations
+      summary: Supprimer une cotisation
+      parameters:
+        - $ref: '#/components/parameters/CollectiviteId'
+        - $ref: '#/components/parameters/CotisationId'
+      responses:
+        204:
+          description: Cotisation supprimee
+        400:
+          $ref: '#/components/responses/BadRequest'
+        404:
+          $ref: '#/components/responses/NotFound'
   /collectivity/{id}/paiements:
     post:
       tags:
         - Paiements
       summary: creer un nouveau paiementType
       parameters:
-      - $ref: '#/components/parameters/CollectiviteId'
+        - $ref: '#/components/parameters/CollectiviteId'
       requestBody:
         required: true
         content:
           application/json:
-            schema: 
+            schema:
               $ref: '#/components/schemas/PaiementCreation'
       responses:
         201:
           description: Paiement enregistere
           content:
             application/json:
-              schema: 
+              schema:
                 $ref: '#/components/schemas/Paiement'
         400:
           $ref: '#/components/responses/BadRequest'
@@ -209,7 +209,7 @@ paths:
     get:
       tags:
         - Activites
-      summary: Lister toutes les activites de la collectivites 
+      summary: Lister toutes les activites de la collectivites
       parameters:
         - $ref: '#/components/parameters/CollectiviteId'
       responses:
@@ -217,30 +217,30 @@ paths:
           description: Liste des toutes les activites
           content:
             application/json:
-              schema:  
+              schema:
                 type: array
-                items: 
+                items:
                   $ref: '#/components/schemas/Activite'
         404:
           $ref: '#/components/responses/NotFound'
-    post: 
+    post:
       tags:
         - Activites
-      summary: Creer une nouvelle activite 
+      summary: Creer une nouvelle activite
       parameters:
         - $ref: '#/components/parameters/CollectiviteId'
       requestBody:
         required: true
         content:
           application/json:
-            schema: 
+            schema:
               $ref: '#/components/schemas/ActiviteCreation'
       responses:
         201:
           description: activite cree
           content:
             application/json:
-              schema: 
+              schema:
                 $ref: '#/components/schemas/Activite'
         400:
           $ref: '#/components/responses/BadRequest'
@@ -259,7 +259,7 @@ paths:
           description: Activite demandee
           content:
             application/json:
-              schema:  
+              schema:
                 $ref: '#/components/schemas/Activite'
         404:
           $ref: '#/components/responses/NotFound'
@@ -281,7 +281,7 @@ paths:
           description: Activite mise a jour
           content:
             application/json:
-              schema:  
+              schema:
                 $ref: '#/components/schemas/Activite'
         400:
           $ref: '#/components/responses/BadRequest'
@@ -351,7 +351,7 @@ components:
         titre:
           type: string
           example: 'Reunion'
-        type: 
+        type:
           $ref: '#/components/schemas/ActiviteType'
         estOuvertATous:
           type: boolean
@@ -362,7 +362,7 @@ components:
         date:
           type: string
           format: date
-        recurrence: 
+        recurrence:
           $ref: '#/components/schemas/ActiviteRecurrence'
     
     ActiviteType:
@@ -374,15 +374,15 @@ components:
 
     ActiviteRecurrence:
       type: object
-      properties: 
-        semaine: 
+      properties:
+        semaine:
           type: integer
           minimum: 1
           maximum: 5
         jour:
           $ref: '#/components/schemas/JourDeSemaine'
     
-    JourDeSemaine: 
+    JourDeSemaine:
       type: string
       enum:
         - LUNDI
@@ -393,14 +393,14 @@ components:
         - SAMEDI
         - DIMANCHE
 
-    Activite: 
+    Activite:
       allOf:
         - $ref: '#/components/schemas/ActiviteCreation'
         - type: object
           properties:
-           id:
-            type: integer
-            example: 1
+            id:
+              type: integer
+              example: 1
 
     ActiviteUpdate:
       type: object
@@ -408,7 +408,7 @@ components:
         titre:
           type: string
           example: 'Reunion'
-        type: 
+        type:
           $ref: '#/components/schemas/ActiviteType'
         estOuvertATous:
           type: boolean
@@ -419,13 +419,13 @@ components:
         date:
           type: string
           format: date
-        recurrence: 
+        recurrence:
           $ref: '#/components/schemas/ActiviteRecurrence'
 
     PaiementCreation:
       type: object
       properties:
-        membreId: 
+        membreId:
           type: integer
           example: 1
         montant:
@@ -433,7 +433,7 @@ components:
           format: decimal
           minimum: 0
           example: 50000
-        transactionType: 
+        transactionType:
           $ref: "#/components/schemas/TransactionType"
         transactionReference:
           type: string
@@ -441,7 +441,7 @@ components:
         destinataireId:
           type: string
           example: '037 56 202 46'
-        paiementType: 
+        paiementType:
           $ref : '#/components/schemas/PaiementType'
         description:
           type: string
@@ -449,11 +449,11 @@ components:
         cotisationId:
           type: integer
           example: 1
-        activiteId: 
+        activiteId:
           type: integer
           example: 1
     
-    Paiement: 
+    Paiement:
       allOf:
         - $ref: '#/components/schemas/PaiementCreation'
         - type: object
@@ -469,13 +469,13 @@ components:
         - MOBILE_MONEY
         - VIREMENT
     
-    PaiementType: 
+    PaiementType:
       type: string
-      enum: 
+      enum:
         - COTISATION_PERIODIQUE
         - COTISATION_EXCEPTIONNELLE
         - VERSEMENT_FEDERATION
-        - ADHESION 
+        - ADHESION
         - ACTIVITE
         - FORMATION
         - AUTRE
@@ -503,7 +503,7 @@ components:
                 $ref: '#/components/schemas/NouveauMembre'
               minItems: 10
     
-    Collectivite: 
+    Collectivite:
       allOf:
         - $ref: '#/components/schemas/CollectiviteBaseComponent'
         - type: object
@@ -513,7 +513,7 @@ components:
               example: 'COllectivite manioc du sud'
             membres:
               type: array
-              items: 
+              items:
                 $ref: '#/components/schemas/Membre'
     
     NouveauMembre:
@@ -531,7 +531,7 @@ components:
         metier:
           type: string
           example: 'Agriculteur'
-        role: 
+        role:
           $ref: '#/components/schemas/Role'
         telephone:
           type: string
@@ -576,17 +576,33 @@ components:
           example: '2029-04-20'
         details:
           type: string
-    
+
     AdhesionMembre:
       type: object
+      required:
+        - membreId
+        - parrains
       properties:
         membreId:
           type: integer
           example: 1
+        parrains:
+          type: array
+          minItems: 2
+          items:
+            $ref: '#/components/schemas/Parrainage'
+
+    Parrainage:
+      type: object
+      properties:
         parrainId:
           type: integer
           example: 2
-    
+        relation:
+          type: string
+          enum: [FAMILLE, AMI, COLLEGUE, AUTRE]
+          example: "AMI"
+
     CotisationCreation:
       type: object
       properties:
@@ -598,15 +614,15 @@ components:
           example: 15000
         type:
           $ref: '#/components/schemas/CotisationType'
-    
+
     CotisationType:
       type: string
       enum:
         - MENSUEL
         - ANNUEL
         - PONCTUEL
-    
-    Cotisation: 
+
+    Cotisation:
       allOf:
         - $ref: '#/components/schemas/CotisationCreation'
         - type: object
@@ -617,7 +633,7 @@ components:
             commencerLe:
               type: string
               format: date
-    
+
     CotisationUpdate:
       type: object
       properties:
