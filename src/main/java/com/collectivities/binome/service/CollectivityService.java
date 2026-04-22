@@ -1,10 +1,7 @@
 package com.collectivities.binome.service;
 
 import
-import com.collectivities.binome.entity.Collectivity;
-import com.collectivities.binome.entity.CollectivityStructure;
-import com.collectivities.binome.entity.CreateCollectivity;
-import com.collectivities.binome.entity.Member;
+import com.collectivities.binome.entity.*;
 import com.collectivities.binome.exceptions.AppBadRequestException;
 import com.collectivities.binome.repository.CollectivityRepository;
 import com.collectivities.binome.repository.MemberRepository;

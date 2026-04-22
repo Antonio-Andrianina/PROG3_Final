@@ -19,7 +19,7 @@ public class MemberRepository {
 
     private final Connection conn;
 
-    public Optional<Member> findById(String id) {
+    public Member findById(String id) {
         String sql = "SELECT * FROM member WHERE id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
