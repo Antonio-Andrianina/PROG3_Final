@@ -1,0 +1,109 @@
+package com.collectivities.binome.service;
+
+import
+import com.collectivities.binome.entity.Collectivity;
+import com.collectivities.binome.entity.CollectivityStructure;
+import com.collectivities.binome.entity.CreateCollectivity;
+import com.collectivities.binome.entity.Member;
+import com.collectivities.binome.exceptions.AppBadRequestException;
+import com.collectivities.binome.repository.CollectivityRepository;
+import com.collectivities.binome.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class CollectivityService {
+
+    private final CollectivityRepository collectivityRepository;
+    private final MemberRepository memberRepository;
+    private final MemberService memberService;
+
+    public Collectivity save(CreateCollectivity toSave){
+
+        List<Member> members = new ArrayList<>();
+
+        for(String id : toSave.getMembers()){
+            members.add(
+                    this.memberRepository.findById(id)
+            );
+        }
+
+        if (members.size() < 10 || !toSave.getFederationApproval()){
+            throw new AppBadRequestException("Collectivity without federation approval or structure missing.");
+        }
+
+        int president = 0;
+        int vicePresident = 0;
+        int treasurer = 0;
+        int secretary = 0;
+
+        for(Member member : members){
+            switch (member.getOccupation()){
+                case SECRETARY -> secretary++;
+                case TREASURER -> treasurer++;
+                case VICE_PRESIDENT -> vicePresident++;
+                case PRESIDENT -> president++;
+                default -> {}
+            }
+        }
+
+        if(president != 1 || vicePresident != 1 || treasurer != 1 || secretary != 1){
+            throw  new AppBadRequestException("Collectivity without federation approval or structure missing.");
+        }
+
+        List<Long> seniorityOfMembers = new ArrayList<>();
+
+        for(Member member : members){
+            seniorityOfMembers.add(
+                    this.memberService.getSeniority(member.getId())
+            );
+        }
+
+        int memberWithEnoughSeniority = seniorityOfMembers.stream()
+                .filter(s -> s > 180)
+                .toList().size();
+
+
+        Collectivity collectivity = this.collectivityRepository.createCollectivity(toSave);
+
+        for(Member member : members) {
+            this.memberRepository.attachMember(member.getId() , collectivity.getId(), member.getOccupation());
+        }
+
+        collectivity.setMembers(members);
+
+        CollectivityStructure structure = new CollectivityStructure();
+
+        for(Member member : members){
+            if(member.getOccupation() == MemberOccupation.PRESIDENT){
+                structure.setPresident(member);
+            } else if(member.getOccupation() == MemberOccupation.VICE_PRESIDENT){
+                structure.setVicePresident(member);
+            } else if(member.getOccupation() == MemberOccupation.TREASURER){
+                structure.setTreasurer(member);
+            } else if(member.getOccupation() == MemberOccupation.SECRETARY){
+                structure.setSecretary(member);
+            }
+        }
+
+
+        collectivity.setStructure(structure);
+
+        return collectivity;
+    }
+
+    public List<Collectivity> saveAll(List<CreateCollectivity> toSave){
+        List<Collectivity> collectivities = new ArrayList<>();
+        for(CreateCollectivity collectivity : toSave){
+            collectivities.add(
+                    this.save(collectivity)
+            );
+        }
+        return collectivities;
+    }
+
+}

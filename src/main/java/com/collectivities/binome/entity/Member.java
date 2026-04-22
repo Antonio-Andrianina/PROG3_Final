@@ -1,48 +1,13 @@
 package com.collectivities.binome.entity;
 
-import java.time.LocalDate;
+import lombok.*;
+import java.util.List;
 
-public class Member {
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+public class Member extends MemberInformation {
     private String id;
-    private String firstName;
-    private String lastName;
-    private LocalDate birthDate;
-    private Gender gender;
-    private String address;
-    private String profession;
-    private String phoneNumber;
-    private String email;
-    private LocalDate registrationDate;
-
-    public Member() {}
-
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-
-    public String getFirstName() { return firstName; }
-    public void setFirstName(String firstName) { this.firstName = firstName; }
-
-    public String getLastName() { return lastName; }
-    public void setLastName(String lastName) { this.lastName = lastName; }
-
-    public LocalDate getBirthDate() { return birthDate; }
-    public void setBirthDate(LocalDate birthDate) { this.birthDate = birthDate; }
-
-    public Gender getGender() { return gender; }
-    public void setGender(Gender gender) { this.gender = gender; }
-
-    public String getAddress() { return address; }
-    public void setAddress(String address) { this.address = address; }
-
-    public String getProfession() { return profession; }
-    public void setProfession(String profession) { this.profession = profession; }
-
-    public String getPhoneNumber() { return phoneNumber; }
-    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
-
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
-
-    public LocalDate getRegistrationDate() { return registrationDate; }
-    public void setRegistrationDate(LocalDate registrationDate) { this.registrationDate = registrationDate; }
+    private List<String> referees;
 }
