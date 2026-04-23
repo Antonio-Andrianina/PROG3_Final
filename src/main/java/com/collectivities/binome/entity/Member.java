@@ -1,6 +1,11 @@
 package com.collectivities.binome.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @AllArgsConstructor
@@ -10,4 +15,6 @@ import java.util.List;
 public class Member extends MemberInformation {
     private String id;
     private List<String> referees;
+    private LocalDate registrationDate;
+    private Collectivity collectivity;
 }

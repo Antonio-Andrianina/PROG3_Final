@@ -1,43 +1,53 @@
 package com.collectivities.binome.service;
 
+import com.collectivities.binome.entity.CreateMembershipFees;
+import com.collectivities.binome.entity.MembershipFees;
+import com.collectivities.binome.exceptions.AppBadRequestException;
+import com.collectivities.binome.repository.CollectivityRepository;
+import com.collectivities.binome.repository.MembershipFeesRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-import com.collectivities.binome.controller.CreateMembershipFee;
-import com.collectivities.binome.controller.MembershipFees;
-import com.collectivities.binome.repository.MembershipFeesRepository;
-
-
+@Service
+@RequiredArgsConstructor
 public class MembershipFeesService {
 
-     private final MembershipFeesRepository repository;
-
-    public MembershipFeesService(MembershipFeesRepository repository) {
-        this.repository = repository;
-    }
+    private final MembershipFeesRepository repository;
+    private final CollectivityRepository collectivityRepository;
 
     public List<MembershipFees> getFees(String collectivityId) {
+        UUID id = UUID.fromString(collectivityId);
+
+        if (!collectivityRepository.existsById(id)) {
+            throw new AppBadRequestException("Collectivity not found: " + collectivityId);
+        }
+
         return repository.getByCollectivityId(collectivityId);
     }
 
-    public List<MembershipFees> createFees(String collectivityId, List<CreateMembershipFee> dtos) {
+    public List<MembershipFees> createFees(String collectivityId, List<CreateMembershipFees> dtos) {
+        UUID id = UUID.fromString(collectivityId);
+
+        if (!collectivityRepository.existsById(id)) {
+            throw new AppBadRequestException("Collectivity not found: " + collectivityId);
+        }
+
         List<String> createdFeesId = new ArrayList<>();
 
-        for(CreateMembershipFee fee : dtos){
-            createdFeesId.add(
-                    this.repository.save(fee, collectivityId)
-            );
+        for (CreateMembershipFees fee : dtos) {
+            createdFeesId.add(repository.save(fee, collectivityId));
         }
 
         List<MembershipFees> savedFees = new ArrayList<>();
 
-        for(String id : createdFeesId){
-            savedFees.add(
-                    this.repository.getById(id)
-            );
+        for (String feeId : createdFeesId) {
+            savedFees.add(repository.getById(feeId));
         }
 
         return savedFees;
     }
-
 }
