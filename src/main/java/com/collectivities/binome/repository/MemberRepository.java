@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -19,7 +20,7 @@ public class MemberRepository {
 
     private final Connection conn;
 
-    public Member findById(String id) {
+    public Optional<Member> findById(String id) {
         String sql = "SELECT * FROM member WHERE id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {

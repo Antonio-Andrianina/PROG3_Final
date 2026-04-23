@@ -1,11 +1,12 @@
 package com.collectivities.binome.service;
 
-import
 import com.collectivities.binome.entity.*;
 import com.collectivities.binome.exceptions.AppBadRequestException;
 import com.collectivities.binome.repository.CollectivityRepository;
 import com.collectivities.binome.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
