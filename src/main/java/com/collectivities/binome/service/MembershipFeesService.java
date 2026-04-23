@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.collectivities.binome.controller.CreateMembershipFee;
-import com.collectivities.binome.controller.MembershipFee;
+import com.collectivities.binome.controller.MembershipFees;
 import com.collectivities.binome.repository.MembershipFeesRepository;
 
 
@@ -16,11 +16,11 @@ public class MembershipFeesService {
         this.repository = repository;
     }
 
-    public List<MembershipFee> getFees(String collectivityId) {
+    public List<MembershipFees> getFees(String collectivityId) {
         return repository.getByCollectivityId(collectivityId);
     }
 
-    public List<MembershipFee> createFees(String collectivityId, List<CreateMembershipFee> dtos) {
+    public List<MembershipFees> createFees(String collectivityId, List<CreateMembershipFee> dtos) {
         List<String> createdFeesId = new ArrayList<>();
 
         for(CreateMembershipFee fee : dtos){
@@ -29,7 +29,7 @@ public class MembershipFeesService {
             );
         }
 
-        List<MembershipFee> savedFees = new ArrayList<>();
+        List<MembershipFees> savedFees = new ArrayList<>();
 
         for(String id : createdFeesId){
             savedFees.add(

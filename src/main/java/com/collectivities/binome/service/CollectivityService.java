@@ -104,4 +104,9 @@ public class CollectivityService {
         return collectivities;
     }
 
+    public <CollectivityIdentity> @Nullable Object assignIdentity(String id, CollectivityIdentity body) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'assignIdentity'");
+    }
+
 }
