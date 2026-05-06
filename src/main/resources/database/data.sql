@@ -1,3 +1,5 @@
+SET session_replication_role = 'replica';
+
 INSERT INTO collectivity (id, unique_number, unique_name, location, specialty) VALUES
                                                                                    ('col-1', '1', 'Mpanorina', 'Ambatondrazaka', 'Riziculture'),
                                                                                    ('col-2', '2', 'Dobo voalahany', 'Ambatondrazaka', 'Pisciculture'),
@@ -105,16 +107,6 @@ INSERT INTO payment (collectivity_id, member_id, amount, account_id, payment_met
                                                                                                        ('col-1', 'C1-M7', 60000, 'C1-A-CASH', 'CASH', '2026-01-01'),
                                                                                                        ('col-1', 'C1-M8', 90000, 'C1-A-CASH', 'CASH', '2026-01-01');
 
-INSERT INTO transaction (collectivity_id, member_id, amount, account_id, payment_method, transaction_date) VALUES
-                                                                                                               ('col-1', 'C1-M1', 100000, 'C1-A-CASH', 'CASH', '2026-01-01'),
-                                                                                                               ('col-1', 'C1-M2', 100000, 'C1-A-CASH', 'CASH', '2026-01-01'),
-                                                                                                               ('col-1', 'C1-M3', 100000, 'C1-A-CASH', 'CASH', '2026-01-01'),
-                                                                                                               ('col-1', 'C1-M4', 100000, 'C1-A-CASH', 'CASH', '2026-01-01'),
-                                                                                                               ('col-1', 'C1-M5', 100000, 'C1-A-CASH', 'CASH', '2026-01-01'),
-                                                                                                               ('col-1', 'C1-M6', 100000, 'C1-A-CASH', 'CASH', '2026-01-01'),
-                                                                                                               ('col-1', 'C1-M7', 60000, 'C1-A-CASH', 'CASH', '2026-01-01'),
-                                                                                                               ('col-1', 'C1-M8', 90000, 'C1-A-CASH', 'CASH', '2026-01-01');
-
 INSERT INTO payment (collectivity_id, member_id, amount, account_id, payment_method, payment_date) VALUES
                                                                                                        ('col-2', 'C2-M1', 60000, 'C2-A-CASH', 'CASH', '2026-01-01'),
                                                                                                        ('col-2', 'C2-M2', 90000, 'C2-A-CASH', 'CASH', '2026-01-01'),
@@ -126,6 +118,16 @@ INSERT INTO payment (collectivity_id, member_id, amount, account_id, payment_met
                                                                                                        ('col-2', 'C2-M8', 60000, 'C2-A-MOBILE-1', 'MOBILE_MONEY', '2026-01-01');
 
 INSERT INTO transaction (collectivity_id, member_id, amount, account_id, payment_method, transaction_date) VALUES
+                                                                                                               ('col-1', 'C1-M1', 100000, 'C1-A-CASH', 'CASH', '2026-01-01'),
+                                                                                                               ('col-1', 'C1-M2', 100000, 'C1-A-CASH', 'CASH', '2026-01-01'),
+                                                                                                               ('col-1', 'C1-M3', 100000, 'C1-A-CASH', 'CASH', '2026-01-01'),
+                                                                                                               ('col-1', 'C1-M4', 100000, 'C1-A-CASH', 'CASH', '2026-01-01'),
+                                                                                                               ('col-1', 'C1-M5', 100000, 'C1-A-CASH', 'CASH', '2026-01-01'),
+                                                                                                               ('col-1', 'C1-M6', 100000, 'C1-A-CASH', 'CASH', '2026-01-01'),
+                                                                                                               ('col-1', 'C1-M7', 60000, 'C1-A-CASH', 'CASH', '2026-01-01'),
+                                                                                                               ('col-1', 'C1-M8', 90000, 'C1-A-CASH', 'CASH', '2026-01-01');
+
+INSERT INTO transaction (collectivity_id, member_id, amount, account_id, payment_method, transaction_date) VALUES
                                                                                                                ('col-2', 'C2-M1', 60000, 'C2-A-CASH', 'CASH', '2026-01-01'),
                                                                                                                ('col-2', 'C2-M2', 90000, 'C2-A-CASH', 'CASH', '2026-01-01'),
                                                                                                                ('col-2', 'C2-M3', 100000, 'C2-A-CASH', 'CASH', '2026-01-01'),
@@ -134,3 +136,5 @@ INSERT INTO transaction (collectivity_id, member_id, amount, account_id, payment
                                                                                                                ('col-2', 'C2-M6', 100000, 'C2-A-CASH', 'CASH', '2026-01-01'),
                                                                                                                ('col-2', 'C2-M7', 40000, 'C2-A-MOBILE-1', 'MOBILE_MONEY', '2026-01-01'),
                                                                                                                ('col-2', 'C2-M8', 60000, 'C2-A-MOBILE-1', 'MOBILE_MONEY', '2026-01-01');
+
+SET session_replication_role = 'origin';

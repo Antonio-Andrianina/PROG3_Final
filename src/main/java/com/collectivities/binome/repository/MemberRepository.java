@@ -1,6 +1,7 @@
 package com.collectivities.binome.repository;
 
 import com.collectivities.binome.entity.CreateMember;
+import com.collectivities.binome.entity.Gender;
 import com.collectivities.binome.entity.Member;
 import com.collectivities.binome.entity.MemberOccupation;
 import com.collectivities.binome.exceptions.AppBadRequestException;
@@ -145,4 +146,8 @@ public class MemberRepository {
     private String nullSafe(Enum<?> e) { return e != null ? e.name() : null; }
     private Gender parseGender(String s) { return s != null ? Gender.valueOf(s) : null; }
     private MemberOccupation parseOccupation(String s) { return s != null ? MemberOccupation.valueOf(s) : null; }
+
+    public boolean existsById(UUID id) {
+        return false;
+    }
 }

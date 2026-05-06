@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 public class CreateMembershipFees {
-    private LocalDate eligibleFrom;  // CORRIGÉ: eligibleForm -> eligibleFrom
+    private LocalDate eligibleForm;
     private Frequency frequency;
     private Double amount;
     private String label;

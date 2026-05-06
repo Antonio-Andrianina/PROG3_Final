@@ -1,4 +1,3 @@
-
 CREATE TYPE gender_type AS ENUM ('MALE', 'FEMALE');
 CREATE TYPE member_occupation_type AS ENUM ('PRESIDENT', 'VICE_PRESIDENT', 'TREASURER', 'SECRETARY', 'SENIOR', 'JUNIOR', 'CONFIRMED');
 CREATE TYPE frequency_type AS ENUM ('WEEKLY', 'MONTHLY', 'ANNUALLY', 'PUNCTUALLY');
@@ -26,7 +25,7 @@ CREATE TABLE member (
                         address TEXT,
                         profession VARCHAR(100),
                         phone_number VARCHAR(20),
-                        email VARCHAR(255) UNIQUE NOT NULL,
+                        email VARCHAR(255) NOT NULL,  -- PAS DE UNIQUE
                         registration_date DATE DEFAULT CURRENT_DATE,
                         occupation member_occupation_type,
                         collectivity_id VARCHAR(50),
