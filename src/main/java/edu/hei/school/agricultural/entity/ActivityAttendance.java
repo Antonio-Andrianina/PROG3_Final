@@ -8,23 +8,14 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-@Getter
-@Setter
 public class ActivityAttendance {
-    private String id;
-    private String activityId;
-    private String memberId;
-    private AttendanceStatus status;
-    private LocalDateTime recordedAt;
-    private String recordedBy;
-    
-    public enum AttendanceStatus {
-        PRESENT,
-        ABSENT
-    }
+    public String id;
+    public String activityId;
+    public String memberId;
+    public AttendanceStatus status;
+    public LocalDateTime recordedAt;
+    public String recordedBy;
 }

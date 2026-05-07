@@ -23,6 +23,7 @@ public class ActivityAttendance {
     
     public enum AttendanceStatus {
         PRESENT,
-        ABSENT
+        ABSENT,
+        UNDEFINED
     }
 }

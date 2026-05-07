@@ -1,65 +1,44 @@
 package edu.hei.school.agricultural.controller.mapper;
 
-import edu.hei.school.agricultural.controller.dto.ActivityAttendance;
-import edu.hei.school.agricultural.controller.dto.CreateActivityAttendance;
+import edu.hei.school.agricultural.controller.dto.CreateActivityMemberAttendance;
 import edu.hei.school.agricultural.entity.ActivityAttendance;
+import edu.hei.school.agricultural.entity.AttendanceStatus;
+import edu.hei.school.agricultural.repository.MemberRepository;
+import edu.hei.school.agricultural.entity.Member;
+import edu.hei.school.agricultural.exception.NotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Component
 public class ActivityAttendanceDtoMapper {
     
-    public ActivityAttendance mapToDto(edu.hei.school.agricultural.entity.ActivityAttendance attendance) {
-        return new ActivityAttendance(
-            attendance.getId(),
-            attendance.getActivityId(),
-            attendance.getMemberId(),
-            edu.hei.school.agricultural.controller.dto.ActivityAttendance.AttendanceStatus.valueOf(
-                attendance.getStatus().name()
-            ),
-            attendance.getRecordedAt(),
-            attendance.getRecordedBy()
-        );
+    private final MemberRepository memberRepository;
+    
+    public ActivityAttendanceDtoMapper(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
     
-    public List<edu.hei.school.agricultural.entity.ActivityAttendance> mapToEntity(CreateActivityAttendance createAttendance, 
-                                                   String activityId, String recordedBy) {
+    public ActivityAttendance mapToEntity(CreateActivityMemberAttendance createAttendance, String activityId, String recordedBy) {
         LocalDateTime now = LocalDateTime.now();
         
-        // Map present members
-        List<edu.hei.school.agricultural.entity.ActivityAttendance> presentAttendances = createAttendance.getPresentMemberIds().stream()
-                .map(memberId -> {
-                    edu.hei.school.agricultural.entity.ActivityAttendance attendance = new edu.hei.school.agricultural.entity.ActivityAttendance();
-                    attendance.setId(UUID.randomUUID().toString());
-                    attendance.setActivityId(activityId);
-                    attendance.setMemberId(memberId);
-                    attendance.setStatus(edu.hei.school.agricultural.entity.ActivityAttendance.AttendanceStatus.PRESENT);
-                    attendance.setRecordedAt(now);
-                    attendance.setRecordedBy(recordedBy);
-                    return attendance;
-                })
-                .toList();
+        // Find member
+        Member member = memberRepository.findById(createAttendance.memberIdentifier)
+                .orElseThrow(() -> new NotFoundException(
+                        "Member.id=" + createAttendance.memberIdentifier + " not found"));
         
-        // Map absent members
-        List<edu.hei.school.agricultural.entity.ActivityAttendance> absentAttendances = createAttendance.getAbsentMemberIds().stream()
-                .map(memberId -> {
-                    edu.hei.school.agricultural.entity.ActivityAttendance attendance = new edu.hei.school.agricultural.entity.ActivityAttendance();
-                    attendance.setId(UUID.randomUUID().toString());
-                    attendance.setActivityId(activityId);
-                    attendance.setMemberId(memberId);
-                    attendance.setStatus(edu.hei.school.agricultural.entity.ActivityAttendance.AttendanceStatus.ABSENT);
-                    attendance.setRecordedAt(now);
-                    attendance.setRecordedBy(recordedBy);
-                    return attendance;
-                })
-                .toList();
+        // Create entity using direct field access
+        ActivityAttendance attendance = new ActivityAttendance();
+        attendance.id = UUID.randomUUID().toString();
+        attendance.activityId = activityId;
+        attendance.memberId = createAttendance.memberIdentifier;
+        attendance.status = createAttendance.attendanceStatus == null 
+                ? AttendanceStatus.UNDEFINED 
+                : AttendanceStatus.valueOf(createAttendance.attendanceStatus.name());
+        attendance.recordedAt = now;
+        attendance.recordedBy = recordedBy;
         
-        // Combine both lists
-        return List.of(presentAttendances, absentAttendances).stream()
-                .flatMap(List::stream)
-                .toList();
+        return attendance;
     }
 }

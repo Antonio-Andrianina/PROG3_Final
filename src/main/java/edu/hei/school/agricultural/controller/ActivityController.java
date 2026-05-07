@@ -76,9 +76,7 @@ public class ActivityController {
                     .map(createAttendance -> activityAttendanceDtoMapper.mapToEntity(createAttendance, activityId, "system"))
                     .toList();
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(activityService.createAttendances(id, activityId, entities).stream()
-                            .map(activityAttendanceDtoMapper::mapToDto)
-                            .toList());
+                    .body(activityService.createAttendances(id, activityId, entities));
         } catch (BadRequestException e) {
             return ResponseEntity.status(BAD_REQUEST).body(e.getMessage());
         } catch (NotFoundException e) {
@@ -94,9 +92,7 @@ public class ActivityController {
             @PathVariable String activityId) {
         try {
             return ResponseEntity.status(OK)
-                    .body(activityService.getAttendances(id, activityId).stream()
-                            .map(activityAttendanceDtoMapper::mapToDto)
-                            .toList());
+                    .body(activityService.getAttendances(id, activityId));
         } catch (NotFoundException e) {
             return ResponseEntity.status(NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
