@@ -36,7 +36,7 @@ public class Member {
         }
         var memberRefereesInsideActualCollectivityNotJuniorCount = referees.stream().filter(member ->
                         member.getCollectivities() != null
-                        && member.getCollectivities().stream()
+                                && member.getCollectivities().stream()
                                 .anyMatch(collectivity -> collectivities.contains(collectivity) && !JUNIOR.equals(member.getOccupation())))
                 .count();
         return memberRefereesInsideActualCollectivityNotJuniorCount >= 2;

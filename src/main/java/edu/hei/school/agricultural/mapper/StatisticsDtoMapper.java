@@ -1,4 +1,4 @@
-package edu.hei.school.agricultural.controller.mapper;
+package edu.hei.school.agricultural.mapper;
 
 import edu.hei.school.agricultural.controller.dto.CollectivityInformation;
 import edu.hei.school.agricultural.controller.dto.CollectivityLocalStatistics;
@@ -17,11 +17,11 @@ public class StatisticsDtoMapper {
                         .lastName(stat.getMember().getLastName())
                         .email(stat.getMember().getEmail())
                         .occupation(stat.getMember().getOccupation() == null
-                                ? null
-                                : stat.getMember().getOccupation().name())
+                                ? null : stat.getMember().getOccupation().name())
                         .build())
                 .earnedAmount(stat.getEarnedAmount())
                 .unpaidAmount(stat.getUnpaidAmount())
+                .assiduityPercentage(stat.getAssiduityPercentage())
                 .build();
     }
 
@@ -33,6 +33,7 @@ public class StatisticsDtoMapper {
                         .build())
                 .newMembersNumber(stat.getNewMembersNumber())
                 .overallMemberCurrentDuePercentage(stat.getOverallMemberCurrentDuePercentage())
+                .overallMemberAssiduityPercentage(stat.getOverallMemberAssiduityPercentage())
                 .build();
     }
 }

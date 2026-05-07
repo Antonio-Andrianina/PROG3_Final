@@ -15,6 +15,7 @@ import edu.hei.school.agricultural.entity.MembershipFee;
 import edu.hei.school.agricultural.exception.BadRequestException;
 import edu.hei.school.agricultural.exception.NotFoundException;
 import edu.hei.school.agricultural.service.CollectivityService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -52,7 +54,7 @@ public class CollectivityController {
     }
 
     @PostMapping("/collectivities")
-    public ResponseEntity<?> createCollectivity(@RequestBody List<CreateCollectivity> createCollectivities) {
+    public ResponseEntity<?> createCollectivity(@Valid @RequestBody List<CreateCollectivity> createCollectivities) {
         try {
             if (createCollectivities == null || createCollectivities.isEmpty()) {
                 return ResponseEntity.status(BAD_REQUEST)
@@ -81,7 +83,7 @@ public class CollectivityController {
 
     @PutMapping("/collectivities/{id}/informations")
     public ResponseEntity<?> updateCollectivityInformation(@PathVariable String id,
-                                                           @RequestBody CollectivityInformation collectivityInformation) {
+                                                           @Valid @RequestBody CollectivityInformation collectivityInformation) {
         String name = collectivityInformation.getName();
         Integer number = collectivityInformation.getNumber();
         try {
@@ -121,7 +123,7 @@ public class CollectivityController {
     @PostMapping("/collectivities/{id}/membershipFees")
     public ResponseEntity<?> createCollectivityMembershipFee(
             @PathVariable String id,
-            @RequestBody List<CreateMembershipFee> membershipFees) {
+            @Valid @RequestBody List<CreateMembershipFee> membershipFees) {
         try {
             if (membershipFees == null || membershipFees.isEmpty()) {
                 return ResponseEntity.status(BAD_REQUEST)

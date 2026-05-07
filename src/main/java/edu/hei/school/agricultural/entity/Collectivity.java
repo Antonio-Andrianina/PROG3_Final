@@ -8,7 +8,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Data
+@Getter
+@Setter
 public class Collectivity {
     private String id;
     private String name;

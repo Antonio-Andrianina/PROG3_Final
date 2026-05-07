@@ -2,18 +2,14 @@ package edu.hei.school.agricultural.service;
 
 import edu.hei.school.agricultural.controller.dto.CreateActivity;
 import edu.hei.school.agricultural.controller.dto.CreateActivityAttendance;
-import edu.hei.school.agricultural.controller.dto.CreateMemberPayment;
 import edu.hei.school.agricultural.entity.Activity;
 import edu.hei.school.agricultural.entity.ActivityAttendance;
 import edu.hei.school.agricultural.entity.Collectivity;
-import edu.hei.school.agricultural.entity.CollectivityTransaction;
 import edu.hei.school.agricultural.entity.FinancialAccount;
 import edu.hei.school.agricultural.entity.MembershipFee;
 import edu.hei.school.agricultural.exception.BadRequestException;
 import edu.hei.school.agricultural.exception.NotFoundException;
 import edu.hei.school.agricultural.repository.ActivityAttendanceRepository;
-import edu.hei.school.agricultural.repository.ActivityRepository;
-import edu.hei.school.agricultural.repository.CollectivityRepository;
 import edu.hei.school.agricultural.repository.CollectivityTransactionRepository;
 import edu.hei.school.agricultural.repository.FinancialAccountRepository;
 import edu.hei.school.agricultural.repository.MembershipFeeRepository;

@@ -1,8 +1,8 @@
 package edu.hei.school.agricultural.controller.mapper;
 
-import edu.hei.school.agricultural.controller.dto.ActivityAttendance as DtoActivityAttendance;
+import edu.hei.school.agricultural.controller.dto.ActivityAttendance;
 import edu.hei.school.agricultural.controller.dto.CreateActivityAttendance;
-import edu.hei.school.agricultural.entity.ActivityAttendance as EntityActivityAttendance;
+import edu.hei.school.agricultural.entity.ActivityAttendance;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -12,8 +12,8 @@ import java.util.UUID;
 @Component
 public class ActivityAttendanceDtoMapper {
     
-    public DtoActivityAttendance mapToDto(EntityActivityAttendance attendance) {
-        return new DtoActivityAttendance(
+    public ActivityAttendance mapToDto(edu.hei.school.agricultural.entity.ActivityAttendance attendance) {
+        return new ActivityAttendance(
             attendance.getId(),
             attendance.getActivityId(),
             attendance.getMemberId(),
@@ -25,18 +25,18 @@ public class ActivityAttendanceDtoMapper {
         );
     }
     
-    public List<EntityActivityAttendance> mapToEntity(CreateActivityAttendance createAttendance, 
+    public List<edu.hei.school.agricultural.entity.ActivityAttendance> mapToEntity(CreateActivityAttendance createAttendance, 
                                                    String activityId, String recordedBy) {
         LocalDateTime now = LocalDateTime.now();
         
         // Map present members
-        List<EntityActivityAttendance> presentAttendances = createAttendance.getPresentMemberIds().stream()
+        List<edu.hei.school.agricultural.entity.ActivityAttendance> presentAttendances = createAttendance.getPresentMemberIds().stream()
                 .map(memberId -> {
-                    EntityActivityAttendance attendance = new EntityActivityAttendance();
+                    edu.hei.school.agricultural.entity.ActivityAttendance attendance = new edu.hei.school.agricultural.entity.ActivityAttendance();
                     attendance.setId(UUID.randomUUID().toString());
                     attendance.setActivityId(activityId);
                     attendance.setMemberId(memberId);
-                    attendance.setStatus(EntityActivityAttendance.AttendanceStatus.PRESENT);
+                    attendance.setStatus(edu.hei.school.agricultural.entity.ActivityAttendance.AttendanceStatus.PRESENT);
                     attendance.setRecordedAt(now);
                     attendance.setRecordedBy(recordedBy);
                     return attendance;
@@ -44,13 +44,13 @@ public class ActivityAttendanceDtoMapper {
                 .toList();
         
         // Map absent members
-        List<EntityActivityAttendance> absentAttendances = createAttendance.getAbsentMemberIds().stream()
+        List<edu.hei.school.agricultural.entity.ActivityAttendance> absentAttendances = createAttendance.getAbsentMemberIds().stream()
                 .map(memberId -> {
-                    EntityActivityAttendance attendance = new EntityActivityAttendance();
+                    edu.hei.school.agricultural.entity.ActivityAttendance attendance = new edu.hei.school.agricultural.entity.ActivityAttendance();
                     attendance.setId(UUID.randomUUID().toString());
                     attendance.setActivityId(activityId);
                     attendance.setMemberId(memberId);
-                    attendance.setStatus(EntityActivityAttendance.AttendanceStatus.ABSENT);
+                    attendance.setStatus(edu.hei.school.agricultural.entity.ActivityAttendance.AttendanceStatus.ABSENT);
                     attendance.setRecordedAt(now);
                     attendance.setRecordedBy(recordedBy);
                     return attendance;

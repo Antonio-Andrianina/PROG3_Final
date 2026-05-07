@@ -1,7 +1,6 @@
 package edu.hei.school.agricultural.controller.mapper;
 
 import edu.hei.school.agricultural.controller.dto.CollectivityTransaction;
-import edu.hei.school.agricultural.entity.CollectivityTransaction;
 import org.springframework.stereotype.Component;
 
 @Component

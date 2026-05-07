@@ -1,7 +1,6 @@
 package edu.hei.school.agricultural.service;
 
 import edu.hei.school.agricultural.controller.dto.CreateMemberPayment;
-import edu.hei.school.agricultural.entity.Member;
 import edu.hei.school.agricultural.entity.MemberPayment;
 import edu.hei.school.agricultural.exception.BadRequestException;
 import edu.hei.school.agricultural.exception.NotFoundException;

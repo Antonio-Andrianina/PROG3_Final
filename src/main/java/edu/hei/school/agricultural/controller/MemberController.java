@@ -2,13 +2,13 @@ package edu.hei.school.agricultural.controller;
 
 import edu.hei.school.agricultural.controller.dto.CreateMember;
 import edu.hei.school.agricultural.controller.dto.CreateMemberPayment;
-import edu.hei.school.agricultural.controller.dto.MemberPayment;
 import edu.hei.school.agricultural.controller.mapper.MemberDtoMapper;
 import edu.hei.school.agricultural.controller.mapper.MemberPaymentDtoMapper;
 import edu.hei.school.agricultural.entity.Member;
 import edu.hei.school.agricultural.exception.BadRequestException;
 import edu.hei.school.agricultural.exception.NotFoundException;
 import edu.hei.school.agricultural.service.MemberService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +27,7 @@ public class MemberController {
     private final MemberPaymentDtoMapper memberPaymentDtoMapper;
 
     @PostMapping("/members")
-    public ResponseEntity<?> createMembers(@RequestBody List<CreateMember> createMemberDtos) {
+    public ResponseEntity<?> createMembers(@Valid @RequestBody List<CreateMember> createMemberDtos) {
         try {
             if (createMemberDtos == null || createMemberDtos.isEmpty()) {
                 return ResponseEntity.status(BAD_REQUEST)
@@ -58,7 +58,7 @@ public class MemberController {
     @PostMapping("/members/{id}/payments")
     public ResponseEntity<?> createMemberPayments(
             @PathVariable String id,
-            @RequestBody List<CreateMemberPayment> createMemberPayments) {
+            @Valid @RequestBody List<CreateMemberPayment> createMemberPayments) {
         try {
             if (createMemberPayments == null || createMemberPayments.isEmpty()) {
                 return ResponseEntity.status(BAD_REQUEST)

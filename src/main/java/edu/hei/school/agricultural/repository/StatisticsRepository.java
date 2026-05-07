@@ -1,8 +1,5 @@
 package edu.hei.school.agricultural.repository;
 
-import edu.hei.school.agricultural.entity.CollectivityLocalStat;
-import edu.hei.school.agricultural.entity.CollectivityOverallStat;
-import edu.hei.school.agricultural.entity.Member;
 import edu.hei.school.agricultural.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -82,7 +79,7 @@ public class StatisticsRepository {
 
     public List<CollectivityOverallStat> getOverallStats(LocalDate from, LocalDate to) {
         List<CollectivityOverallStat> results = new ArrayList<>();
-        
+
         String sql = """
             SELECT c.id, c.name, c.number,
                    COUNT(DISTINCT cm.member_id) as total_members,
@@ -92,28 +89,28 @@ public class StatisticsRepository {
             LEFT JOIN member m ON m.id = cm.member_id
             GROUP BY c.id, c.name, c.number
             """;
-        
+
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setDate(1, Date.valueOf(from));
             ps.setDate(2, Date.valueOf(to));
             ResultSet rs = ps.executeQuery();
-            
+
             while (rs.next()) {
                 String collectivityId = rs.getString("id");
                 String name = rs.getString("name");
                 Integer number = rs.getInt("number");
                 int totalMembers = rs.getInt("total_members");
                 int newMembers = rs.getInt("new_members");
-                
+
                 // Calculer le pourcentage de membres à jour
                 double percentage = calculateUpToDatePercentage(collectivityId, to, totalMembers);
-                
+
                 Collectivity collectivity = Collectivity.builder()
                         .id(collectivityId)
                         .name(name)
                         .number(number)
                         .build();
-                
+
                 results.add(CollectivityOverallStat.builder()
                         .collectivity(collectivity)
                         .newMembersNumber(newMembers)
@@ -125,10 +122,10 @@ public class StatisticsRepository {
         }
         return results;
     }
-    
+
     private double calculateUpToDatePercentage(String collectivityId, LocalDate toDate, int totalMembers) {
         if (totalMembers == 0) return 0.0;
-        
+
         String sql = """
             SELECT COUNT(DISTINCT m.id) as up_to_date_members
             FROM member m
@@ -147,7 +144,7 @@ public class StatisticsRepository {
                     )
               )
             """;
-        
+
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, collectivityId);
             ps.setDate(2, Date.valueOf(toDate));

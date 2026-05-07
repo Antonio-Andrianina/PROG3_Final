@@ -1,7 +1,6 @@
 package edu.hei.school.agricultural.mapper;
 
 import edu.hei.school.agricultural.entity.Gender;
-import edu.hei.school.agricultural.entity.Member;
 import edu.hei.school.agricultural.entity.MemberOccupation;
 import org.springframework.stereotype.Component;
 

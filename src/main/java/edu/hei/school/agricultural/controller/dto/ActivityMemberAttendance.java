@@ -6,19 +6,19 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class Activity {
+public class ActivityMemberAttendance {
     private String id;
-    private String name;
-    private String description;
-    private LocalDate activityDate;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private MemberDescription memberDescription;
+    private AttendanceStatus attendanceStatus;
+    
+    public enum AttendanceStatus {
+        MISSING,
+        ATTENDED,
+        UNDEFINED
+    }
 }

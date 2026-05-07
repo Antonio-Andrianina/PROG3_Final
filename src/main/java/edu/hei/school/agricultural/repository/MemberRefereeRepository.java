@@ -1,6 +1,5 @@
 package edu.hei.school.agricultural.repository;
 
-import edu.hei.school.agricultural.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

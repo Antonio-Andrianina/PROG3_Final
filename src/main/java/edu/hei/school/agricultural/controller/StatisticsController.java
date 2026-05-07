@@ -1,7 +1,5 @@
 package edu.hei.school.agricultural.controller;
 
-import edu.hei.school.agricultural.controller.mapper.StatisticsDtoMapper;
-import edu.hei.school.agricultural.exception.BadRequestException;
 import edu.hei.school.agricultural.exception.NotFoundException;
 import edu.hei.school.agricultural.service.StatisticsService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 
 
 @RestController

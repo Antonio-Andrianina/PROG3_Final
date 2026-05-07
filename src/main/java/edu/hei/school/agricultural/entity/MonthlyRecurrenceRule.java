@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CollectivityLocalStat {
-    private Member member;
-    private Double earnedAmount;
-    private Double unpaidAmount;
-    private Double assiduityPercentage;
+public class MonthlyRecurrenceRule {
+    private Integer weekOrdinal;
+    private String dayOfWeek;
 }
